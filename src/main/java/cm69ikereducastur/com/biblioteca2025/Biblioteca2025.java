@@ -363,8 +363,8 @@ public class Biblioteca2025 {
         int posLibro = buscaLibros(isbn);
         int posUsuario = buscaUsuarios(dni);
         
-        if (posLibro == -1) {
-            System.out.println("No encontramos el libro."); 
+        if (posLibro == -1 && posUsuario == -1) {
+            System.out.println("No encontramos el libro y/o."); 
         } else {
             
         }
