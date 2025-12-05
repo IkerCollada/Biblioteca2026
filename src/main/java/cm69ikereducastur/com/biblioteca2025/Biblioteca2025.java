@@ -1,0 +1,384 @@
+/*
+ * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
+ */
+
+package cm69ikereducastur.com.biblioteca2025;
+
+import java.time.LocalDate;
+import java.util.ArrayList;
+import java.util.Scanner;
+
+/**
+ *
+ * @author 1dawd23
+ */
+public class Biblioteca2025 {
+    private static ArrayList <Libro> libros = new ArrayList();
+    private static ArrayList <Usuario> usuarios = new ArrayList();
+    private static ArrayList <Prestamo> prestamos = new ArrayList();
+    private static Scanner sc = new Scanner (System.in);
+    
+    public static void main(String[] args) {
+        cargaDatos();
+        menúGeneral();
+    }
+    
+    public static void cargaDatos(){
+        
+        libros.add(new Libro("1-11","El Hobbit","JRR Tolkien","Aventuras",3)); 
+        libros.add(new Libro("1-22","El Silmarillon","JRR Tolkien","Aventuras",3)); 
+        libros.add(new Libro("1-33","El Medico","N. Gordon","Aventuras",4)); 
+        libros.add(new Libro("1-44","Chaman","N. Gordon","Aventuras",3)); 
+        libros.add(new Libro("1-55","Momo","M. Ende","Aventuras",2)); 
+        libros.add(new Libro("1-66","Paraiso inhabitado","A.M.Matute","Aventuras",2)); 
+        libros.add(new Libro("1-77","Olvidado Rey Gudu","A.M.Matute","Aventuras",0)); 
+        libros.add(new Libro("1-88","El ultimo barco","D.Villar","Novela Negra",3)); 
+        libros.add(new Libro("1-99","Ojos de agua","D.Villar","Novela Negra",0)); 
+
+        usuarios.add(new Usuario("11","Ana","ana@email.com","621111111")); 
+        usuarios.add(new Usuario("22","David","david@email.com","622222222")); 
+        usuarios.add(new Usuario("33","Bea","bea@email.com","623333333")); 
+        usuarios.add(new Usuario("44","Lucas","lucas@email.com","624444444")); 
+        usuarios.add(new Usuario("55","Carlota","carlota@email.com","625555555")); 
+        usuarios.add(new Usuario("66","Juan","juan@email.com","626666666"));
+        
+        LocalDate hoy= LocalDate.now();
+        prestamos.add(new Prestamo(libros.get(0),usuarios.get(0), hoy.minusDays(20),hoy.minusDays(5)));
+        prestamos.add(new Prestamo(libros.get(0),usuarios.get(0), hoy,hoy.plusDays(15)));
+        prestamos.add(new Prestamo(libros.get(5),usuarios.get(0), hoy,hoy.plusDays(15)));
+        prestamos.add(new Prestamo(libros.get(5),usuarios.get(0), hoy.minusDays(20),hoy.minusDays(5)));
+        prestamos.add(new Prestamo(libros.get(1),usuarios.get(4), hoy.minusDays(20),hoy.minusDays(5)));
+        prestamos.add(new Prestamo(libros.get(2),usuarios.get(4), hoy.minusDays(20),hoy.minusDays(5)));
+        prestamos.add(new Prestamo(libros.get(3),usuarios.get(4), hoy.minusDays(20),hoy.minusDays(5)));
+        prestamos.add(new Prestamo(libros.get(6),usuarios.get(4), hoy,hoy.plusDays(2)));
+        prestamos.add(new Prestamo(libros.get(6),usuarios.get(1), hoy,hoy.plusDays(5)));
+    }
+    
+    //<editor-fold defaultstate="collapsed" desc="Listados">
+    
+
+    public static void mostrarLibros(){
+        for (Libro l : libros) {
+            System.out.println("\n" + l.getIsbn() + " - " + l.getTitulo() + " - " + l.getAutor() + " - " + l.getGenero() + " - " + l.getEjemplares());
+        }
+    }
+    
+    public static void mostrarUsuarios(){
+        for (Usuario u : usuarios) {
+            System.out.println("\n" + u.getDni() + " - " + u.getNombre() + " - " + u.getEmail() + " - " + u.getTelefono());
+        }
+    }
+    
+    public static void mostrarPrestamos(){
+        for (Prestamo p : prestamos) {
+            System.out.println(p);
+        }
+    }
+    //</editor-fold>
+    
+    //<editor-fold defaultstate="collapsed" desc="MENÚ">
+    public static void menúGeneral(){
+        int opciones;
+        do {            
+            System.out.println("\n\t\t\tMENÚ GENERAL");
+            System.out.println("\t\t\t1 - GESTIONAR LIBROS");
+            System.out.println("\t\t\t2 - GESTIONAR USUARIOS");
+            System.out.println("\t\t\t3 - GESTIONAR PRÉSTAMOS");
+            System.out.println("\t\t\t4 - VER LISTADOS");
+            System.out.println("\t\t\t9  - SALIR");
+            opciones = sc.nextInt();
+            switch (opciones) {
+            case 1:
+                menúLibros();
+                break;
+            case 2:
+                menúUsuarios();
+            break;
+            case 3:
+                menúPrestamos();
+                break;
+            case 4:
+                menúListados();
+                break;
+            }
+        } while (opciones !=9);
+    }
+    
+    public static void menúLibros(){
+        int opciones;
+        do {            
+            System.out.println("\n\t\t\t\tMENÚ LIBROS");
+            System.out.println("\t\t\t1 - AÑADIR LIBRO");
+            System.out.println("\t\t\t2 - LISTADO LIBROS");
+            System.out.println("\t\t\t3 - MODIFICAR LIBRO");
+            System.out.println("\t\t\t4 - ELIMINAR LIBRO");
+            System.out.println("\t\t\t9  - SALIR");
+            opciones = sc.nextInt();
+            switch (opciones) {
+            case 1:
+                añadirLibros();
+                break;
+            case 2:
+               mostrarLibros();
+            break;
+            case 3:
+                modificarLibro();
+                break;
+            case 4:
+                eliminarLibro();
+                break;
+            }
+        } while (opciones !=9);
+    }
+    
+    public static void menúUsuarios(){
+        int opciones;
+        do {            
+            System.out.println("\n\t\t\t\tMENÚ USUARIOS");
+            System.out.println("\t\t\t1 - AÑADIR USUARIOS");
+            System.out.println("\t\t\t2 - LISTADO USUARIOS");
+            System.out.println("\t\t\t3 - MODIFICAR USUARIOS");
+            System.out.println("\t\t\t4 - ELIMINAR USUARIO");
+            System.out.println("\t\t\t9  - SALIR");
+            opciones = sc.nextInt();
+            switch (opciones) {
+            case 1:
+                añadirUsuarios();
+                break;
+            case 2:
+                mostrarUsuarios();
+            break;
+            case 3:
+                modificarUsuario();
+                break;
+            case 4:
+                eliminarUsuario();
+                break;
+            }
+        } while (opciones !=9);
+    }
+    
+    public static void menúPrestamos(){
+        int opciones;
+        do {            
+            System.out.println("\n\t\t\t\tMENÚ PRÉSTAMOS");
+            System.out.println("\t\t\t1 - PRESTAMO");
+            System.out.println("\t\t\t2 - DEVOLUCIÓN");
+            System.out.println("\t\t\t2 - LISTADO PRÉSTAMOS");
+            System.out.println("\t\t\t9 - SALIR");
+            opciones = sc.nextInt();
+            switch (opciones) {
+            case 1:
+                prestamos();
+                break;
+            case 2:
+                devoluciones();
+                break;
+            case 3:
+                mostrarPrestamos();
+                break;
+            }
+        } while (opciones !=9);
+    }
+    
+    public static void menúListados(){
+        int opciones;
+        do {            
+            System.out.println("\n\t\t\t\tMENÚ LISTADOS");
+            System.out.println("\t\t\t1 - ");
+            System.out.println("\t\t\t2 - ");
+            System.out.println("\t\t\t3 - ");
+            System.out.println("\t\t\t4 - ");
+            System.out.println("\t\t\t5 - ");
+            System.out.println("\t\t\t9 - SALIR");
+            opciones = sc.nextInt();
+            switch (opciones) {
+            case 1:
+                System.out.println("");
+                break;
+            case 2:
+                System.out.println("");
+                break;
+            case 3:
+                System.out.println("");
+                break;
+            case 4:
+                System.out.println("");
+                break;
+            case 5:
+                System.out.println("");
+                break;
+            }
+        } while (opciones !=9);
+    }
+    //</editor-fold>
+    
+    //<editor-fold defaultstate="collapsed" desc="Añadir">
+    
+    public static void añadirLibros(){
+        System.out.print("ISBN: ");
+        String isbn = sc.next();
+        sc.nextLine();
+        System.out.print("\nTítulo: ");
+        String titulo = sc.nextLine(); 
+        System.out.print("\nAutor: ");
+        String autor = sc.nextLine();
+        System.out.print("\nGénero: ");
+        String genero = sc.nextLine();
+        System.out.print("\nNº de ejemplares: ");
+        int ejemplares = sc.nextInt();
+        libros.add(new Libro(isbn, titulo, autor, genero, ejemplares));
+    }
+    
+    public static void añadirUsuarios(){
+        System.out.print("DNI: ");
+        String dni = sc.nextLine();
+        sc.nextLine();
+        System.out.print("Nombre: ");
+        String nombre = sc.nextLine(); 
+        System.out.print("Email: ");
+        String email = sc.nextLine();
+        System.out.print("Teléfono: ");
+        String telefono = sc.nextLine();
+        usuarios.add(new Usuario(dni, nombre, email, telefono));
+    }
+//</editor-fold>
+    
+    //<editor-fold defaultstate="collapsed" desc="Modificar">
+    public static void modificarLibro(){
+        System.out.print("Introduce el ISBN del libro que desea modificar: ");
+        sc.nextLine();
+        String isbn = sc.nextLine();
+        int p = buscaLibros(isbn);
+        if (p == -1) {
+            System.out.println("EL LIBRO BUSCADO NO EXISTE.");
+        } else {
+        System.out.print("ISBN: ");
+        isbn = sc.nextLine();
+        System.out.print("Título: ");
+        String titulo = sc.nextLine(); 
+        System.out.print("Autor: ");
+        String autor = sc.nextLine();
+        System.out.print("Género: ");
+        String genero = sc.nextLine();
+        System.out.print("Nº de ejemplares: ");
+        int ejemplares = sc.nextInt();
+        libros.get(p).setIsbn(isbn);
+        libros.get(p).setTitulo(titulo);
+        libros.get(p).setAutor(autor);
+        libros.get(p).setGenero(genero);
+        libros.get(p).setEjemplares(ejemplares);
+        }
+    }
+    
+    public static void modificarUsuario(){
+        System.out.print("Introduce el nombre de dni que desea modificar: ");
+        sc.nextLine();
+        String dni = sc.nextLine();
+        int p = buscaUsuarios(dni);
+        if (p == -1) {
+            System.out.println("EL LIBRO BUSCADO NO EXISTE.");
+        } else {
+        System.out.print("DNI: ");
+        dni = sc.nextLine();
+        System.out.print("Nombre: ");
+        String nombre = sc.nextLine(); 
+        System.out.print("Email: ");
+        String email = sc.nextLine();
+        System.out.print("Teléfono: ");
+        String telefono = sc.nextLine();
+        usuarios.get(p).setDni(dni);
+        usuarios.get(p).setNombre(nombre);
+        usuarios.get(p).setEmail(email);
+        usuarios.get(p).setTelefono(telefono);
+        }
+    }
+//</editor-fold>
+    
+    //<editor-fold defaultstate="collapsed" desc="Eliminar">
+    public static void eliminarLibro(){
+        System.out.print("Introduce el ISBN del libro para eliminarlo: ");
+        sc.nextLine();
+        String isbn = sc.nextLine();
+        int p = buscaLibros(isbn);
+        if (p == -1) {
+            System.out.println("El libro no existe.");
+        } else{
+            libros.remove(p);
+            System.out.println("Libro eliminado.");
+        }
+    }
+    
+    public static void eliminarUsuario(){
+        System.out.print("Introduce el ISBN del libro para eliminarlo: ");
+        sc.nextLine();
+        String dni = sc.nextLine();
+        int p = buscaUsuarios(dni);
+        if (p == -1) {
+            System.out.println("El usuario no existe.");
+        } else{
+            libros.remove(p);
+            System.out.println("Usuario eliminado.");
+        }
+    }
+//</editor-fold>
+    
+    //<editor-fold defaultstate="collapsed" desc="Busqueda">
+    public static int buscaLibros(String isbn){
+        int pos = -1;
+        int p = 0;
+        for (Libro l : libros) {
+            if (l.getIsbn().equalsIgnoreCase(isbn)) {
+                pos = p;
+                break;
+            }
+            p++;
+        }
+        return p;
+    }
+    
+    public static int buscaUsuarios(String dni){
+        int pos = -1;
+        int p = 0;
+        for (Usuario u : usuarios) {
+            if (u.getDni().equalsIgnoreCase(dni)) {
+                pos = p;
+                break;
+            }
+            p++;
+        }
+        return p;
+    }
+//</editor-fold>
+   
+    //<editor-fold defaultstate="collapsed" desc="Préstamos y devoluciones">
+    public static void prestamos(){
+        LocalDate hoy = LocalDate.now();
+        System.out.print("¿Qué libro será escogido en el préstamo? Ponga el ISBN: ");
+        sc.nextLine();
+        String isbn = sc.nextLine();
+        System.out.print("¿Qué usuario pide el préstamo? Ponga el DNI: ");
+        String dni = sc.nextLine();
+        
+        int posLibro = buscaLibros(isbn);
+        int posUsuario = buscaUsuarios(dni);
+        
+        if (posLibro == -1) {
+            System.out.println("No encontramos el libro."); 
+        } else {
+            
+        }
+        
+        if (posUsuario == -1) {
+            System.out.println("No encontramos al usuario.");
+        } else {
+        }
+        
+    }
+    public static void devoluciones(){
+        
+        
+        
+    }
+//</editor-fold>
+}
