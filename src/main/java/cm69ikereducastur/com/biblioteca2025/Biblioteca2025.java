@@ -25,7 +25,7 @@ public class Biblioteca2025 {
         menúGeneral();
         
     }
-    //MODIFICACIÓN ELIMINADA
+    //Soy una modificación hecha en GitHub.
     public static void cargaDatosPrueba() {
         libros.add(new Libro("1-11", "El Hobbit", "JRR Tolkien", "Aventuras", 3));
         libros.add(new Libro("1-22", "El Silmarillon", "JRR Tolkien", "Aventuras", 3));
