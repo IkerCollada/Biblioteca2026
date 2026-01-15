@@ -4,6 +4,8 @@
  */
 package cm69ikereducastur.com.biblioteca2025;
 
+import java.util.stream.Stream;
+
 /**
  *
  * @author 1dawd23
@@ -56,5 +58,9 @@ public class Usuario {
     @Override
     public String toString() {
         return dni + " - " + nombre + " - " + email + " - " + telefono;
+    }
+
+    Stream<Prestamo> equalsIgnoreCase(String nombre) {
+        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
     }
 }

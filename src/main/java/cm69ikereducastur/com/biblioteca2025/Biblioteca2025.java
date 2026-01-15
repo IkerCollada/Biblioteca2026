@@ -657,5 +657,26 @@ public class Biblioteca2025 {
                 && l.getAutor().equalsIgnoreCase("jrr Tolkien"))
                 .forEach(l->System.out.println(l));
         
+        //LIBROS FUERA DE PLAZO CON STREAMS
+        System.out.println("\n\nListado con stream de prestamos fuera de plazo:");
+        prestamos.stream().filter(p->p.getFechaDev().isBefore(LocalDate.now()))
+                .forEach(p->System.out.println(p));
+        
+        //PRESTAMOS ACTIVOS Y NO ACTIVOS CON STREAMS
+        System.out.print("\n\n\n\nListado con stream de prestamos activos y "
+                + "no activos de un usuario (teclear NOMBRE):");
+        String nombre = sc.next();
+        System.out.println("\nBuscando los prestamos activos de: " + nombre);
+        
+        prestamos.stream().filter(p->p.getUsuarioPrest().getNombre().equalsIgnoreCase(nombre))
+                .forEach(p->System.out.println(p));
+        System.out.println("\nBuscando los prestamos NO activos de: " + nombre);
+        prestamosHist.stream().filter(pHist->pHist.getUsuarioPrest().getNombre().equalsIgnoreCase(nombre))
+                .forEach(p->System.out.println(p));
+        
+        System.out.println("\n\n\nListado con stream de libros activos del género: aventuras.");
+        
+        prestamos.stream().filter(p->p.getLibroPrest().getGenero().equalsIgnoreCase("Aventuras"))
+                .forEach(p->System.out.println(p));
     } 
 }
