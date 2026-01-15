@@ -18,14 +18,14 @@ public class Biblioteca2025 {
     private static ArrayList <Usuario> usuarios = new ArrayList();
     private static ArrayList <Prestamo> prestamos = new ArrayList();
     private static Scanner sc = new Scanner (System.in);
-    private static ArrayList <Prestamo> prestamosHist = new ArrayList();
+    private static ArrayList <Prestamo> prestamosHist = new ArrayList(); //ArrayList secundario de los préstamos
     
     public static void main(String[] args) {
         cargaDatosPrueba();
-        menúGeneral();
+        //menúGeneral();
+        listadosConStreams();
         
     }
-    //Soy una modificación hecha en GitHub.
     public static void cargaDatosPrueba() {
         libros.add(new Libro("1-11", "El Hobbit", "JRR Tolkien", "Aventuras", 3));
         libros.add(new Libro("1-22", "El Silmarillon", "JRR Tolkien", "Aventuras", 3));
@@ -164,7 +164,6 @@ public class Biblioteca2025 {
     }
 //</editor-fold>
     
-    //De aquí para abajo son los apuntes de clase
     public static void cargaDatos(){
         
         libros.add(new Libro("1-11","El Hobbit","JRR Tolkien","Aventuras",3)); 
@@ -617,4 +616,46 @@ public class Biblioteca2025 {
         }
 }
 //</editor-fold>
+
+    //PROGRAMACIÓN FUNCIONAL
+    //Tipos de listados
+    public static void listadosConStreams(){
+        //1. Listado general.
+        System.out.println("\n\nLibros listados desde un stream");
+        libros.stream().forEach(l->System.out.println(l)); //traducido sería: para cada libro, imprime.
+        //Eso de arriba, es lo mismo que lo de abajo.
+        /*for (Libro l : libros) {
+            System.out.println(l); 
+        }*/
+           System.out.println("\n\nUsuarios listados desde un stream");
+        usuarios.stream()
+                .forEach(u->System.out.println(u)); //se puede "dividir" la línea de código.
+        
+        
+        //Listados selectivos (filter) con STREAMS.
+            //Así sería como filtrariamos un libro de género aventuras de normal:
+            System.out.println("\n\n\nLibros filtrados sin uso de un stream:");
+        for (Libro l : libros) {
+            if (l.getGenero().equalsIgnoreCase("aventuras")) {
+                System.out.println(l);
+            }
+        }
+        //Ahora vamos a hacerlo en programación funcional (filter):
+        System.out.println("\n\nLibros filtrados por el género: aventuras.");
+        libros.stream().filter(l->l.getGenero().equalsIgnoreCase("aventuras"))
+                .forEach(l->System.out.println(l));
+        /*Puedes cambiar la cadena de carácteres "aventuras" por otras. No tiene 
+        por qué ser sobre el género, también puedes poner "JRR Tolkien" para filtrar por
+        autor. EJEMPLO:*/
+        System.out.println("\n\nLibros filtrados por el autor: JRR Tolkien.");
+        libros.stream().filter(l->l.getAutor().equalsIgnoreCase("jrr Tolkien"))
+                .forEach(l->System.out.println(l));
+        /*O también puedes combinarlo. EJEMPLO:*/
+        System.out.println("\n\nLibros filtrados por el género: aventuras, y por el autor:"
+                + "JRR Tolkien.");
+        libros.stream().filter(l-> l.getGenero().equalsIgnoreCase("aventuras")
+                && l.getAutor().equalsIgnoreCase("jrr Tolkien"))
+                .forEach(l->System.out.println(l));
+        
+    } 
 }
