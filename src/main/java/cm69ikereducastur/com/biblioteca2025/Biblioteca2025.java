@@ -7,6 +7,7 @@ package cm69ikereducastur.com.biblioteca2025;
 
 import java.time.LocalDate;
 import java.util.ArrayList;
+import java.util.Comparator;
 import java.util.Scanner;
 
 /**
@@ -618,9 +619,9 @@ public class Biblioteca2025 {
 }
 //</editor-fold>
 
-    //PROGRAMACIÓN FUNCIONAL
-    //Tipos de listados
+    //<editor-fold defaultstate="collapsed" desc="PROGRAMACIÓN FUNCIONAL">
     public static void listadosConStreams(){
+    //Tipos de listados:
         //1. Listado general.
         System.out.println("\n\nLibros listados desde un stream");
         libros.stream().forEach(l->System.out.println(l)); //traducido sería: para cada libro, imprime.
@@ -683,8 +684,54 @@ public class Biblioteca2025 {
     }
     
     public static void ordenacionesConStreams(){
-        System.out.println("Listado de libros alfabéticamente por ");
-        libros.stream().sorted().forEach(l->System.out.println(l)); 
-//el sorted funciona solo si le dices a la clase Libro que es comparable y cómo (CompareTo).
+    //Esta es la versión moderna de la programación, antes se necesitaba crear una clase por cada ordenación.
+        System.out.println("Listado de libros ordenados alfabéticamente:");
+        libros.stream().sorted().forEach(l->System.out.println(l));
+        //el sorted funciona solo si le dices a la clase Libro que es comparable y cómo (Implements y CompareTo).
+        
+        System.out.println("\n\nListado de libros ordenados alfabéticamente,"
+                + "pero metiendole al sorted cómo queremos compararlo:");
+        libros.stream().sorted(Comparator.comparing(Libro::getAutor)).forEach(l->System.out.println(l));
+        //Sin falta de hacer una clase nueva o sin un Implements y CompareTo en la clase.
+    
+        System.out.println("\n\nListado de libros ordenados alfabéticamente, pero con .reversed:");
+        libros.stream().sorted(Comparator.comparing(Libro::getAutor).reversed()).forEach(l->System.out.println(l));
+        /*El mismo listado anterior, pero con ".reversed". Hace que el listado sea al contrario.
+        Es decir, en vez de A-Z, de Z-A.*/
+        
+        System.out.println("\n\nListado de Prestamos ordenados por Fecha de préstamo: ");
+        prestamos.stream().sorted(Comparator.comparing(Prestamo::getFechaPrest)).forEach(p->System.out.println(p));
+        
+        //RETO: Ordenar libros por el nº de préstamos que tiene. DE MENOR A MAYOR.
+        
+        System.out.println("\n\nListado de libros ordenados por nº de préstamos que tiene (de menor a mayor)");
+        libros.stream().sorted(Comparator.comparing(l->numPrestLibro(l.getIsbn()))).forEach(l->System.out.println(l + " Unidades prestadas: " 
+                + numPrestLibro(l.getIsbn()))); //si ponemos un .reversed no funcionará porque se necesita hacer un casting (ya se dará).
+
     }
+    
+    /**
+     * Este método sirve para contar cada libro que fue o es prestado (es importante hacer este método
+     * para el reto de arriba). Sin el, no podemos ordenaro por nº de préstamos.
+     * 
+     * @param isbn: es el isbn del libro.
+     * @return cont: será el contador de cada isbn para contar cuántos préstamos tiene o tuvo 
+     * en su momento ese libro.
+     */
+    public static int numPrestLibro(String isbn){ //el contador para el reto
+        int cont = 0;
+        for (Prestamo p : prestamos) {
+            if (p.getLibroPrest().getIsbn().equalsIgnoreCase(isbn)) {
+                cont++;
+            }
+        }
+        
+        for (Prestamo p : prestamosHist) {
+            if (p.getLibroPrest().getIsbn().equalsIgnoreCase(isbn)) {
+                cont++;
+            }
+        }
+        return cont;
+    }
+//</editor-fold>
 }
