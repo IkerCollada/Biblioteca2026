@@ -8,7 +8,7 @@ package cm69ikereducastur.com.biblioteca2025;
  *
  * @author 1dawd23
  */
-public class Libro {
+public class Libro implements Comparable <Libro>{
     private String isbn;
     private String titulo;
     private String autor;
@@ -66,5 +66,10 @@ public class Libro {
     @Override
     public String toString() {
         return isbn + " - " + titulo + " - " + autor + " - " + genero + " - " + ejemplares;
+    }
+
+    @Override //para ordenar libros.
+    public int compareTo(Libro l) {
+    return this.titulo.compareTo(l.getTitulo()); //el título al ser un String, el programa lo ordenará alfabéticamente.
     }
 }

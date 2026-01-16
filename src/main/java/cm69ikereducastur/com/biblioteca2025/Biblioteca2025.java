@@ -23,7 +23,8 @@ public class Biblioteca2025 {
     public static void main(String[] args) {
         cargaDatosPrueba();
         //menúGeneral();
-        listadosConStreams();
+        //listadosConStreams();
+        ordenacionesConStreams();
         
     }
     public static void cargaDatosPrueba() {
@@ -678,5 +679,12 @@ public class Biblioteca2025 {
         
         prestamos.stream().filter(p->p.getLibroPrest().getGenero().equalsIgnoreCase("Aventuras"))
                 .forEach(p->System.out.println(p));
-    } 
+        
+    }
+    
+    public static void ordenacionesConStreams(){
+        System.out.println("Listado de libros alfabéticamente por ");
+        libros.stream().sorted().forEach(l->System.out.println(l)); 
+//el sorted funciona solo si le dices a la clase Libro que es comparable y cómo (CompareTo).
+    }
 }
