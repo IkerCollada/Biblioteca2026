@@ -682,9 +682,8 @@ public class Biblioteca2025 {
                 .forEach(p->System.out.println(p));
         
     }
-    
+    /**Versión moderna de la programación. Anteriormente se necesitaba crear una clase para cada ordenación.*/
     public static void ordenacionesConStreams(){
-    //Esta es la versión moderna de la programación, antes se necesitaba crear una clase por cada ordenación.
         System.out.println("Listado de libros ordenados alfabéticamente:");
         libros.stream().sorted().forEach(l->System.out.println(l));
         //el sorted funciona solo si le dices a la clase Libro que es comparable y cómo (Implements y CompareTo).
@@ -697,7 +696,7 @@ public class Biblioteca2025 {
         System.out.println("\n\nListado de libros ordenados alfabéticamente, pero con .reversed:");
         libros.stream().sorted(Comparator.comparing(Libro::getAutor).reversed()).forEach(l->System.out.println(l));
         /*El mismo listado anterior, pero con ".reversed". Hace que el listado sea al contrario.
-        Es decir, en vez de A-Z, de Z-A.*/
+        Es pocas palabras, en vez de A-Z, de Z-A.*/
         
         System.out.println("\n\nListado de Prestamos ordenados por Fecha de préstamo: ");
         prestamos.stream().sorted(Comparator.comparing(Prestamo::getFechaPrest)).forEach(p->System.out.println(p));
@@ -712,7 +711,7 @@ public class Biblioteca2025 {
     
     /**
      * Este método sirve para contar cada libro que fue o es prestado (es importante hacer este método
-     * para el reto de arriba). Sin el, no podemos ordenaro por nº de préstamos.
+     * para el reto de arriba). Sin el, no podemos ordenarlo por nº de préstamos.
      * 
      * @param isbn: es el isbn del libro.
      * @return cont: será el contador de cada isbn para contar cuántos préstamos tiene o tuvo 
